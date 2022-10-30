@@ -29,8 +29,8 @@ width: 40%;
     text-align: center;
  }
 
- .madlibs p{
-    line-height: 30px;
+ .madlibs{
+    line-height: 25px;
  }
 
  input{
