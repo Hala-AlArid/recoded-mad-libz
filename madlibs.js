@@ -30,47 +30,38 @@
  function parseStory(rawStory) {
   const arr = rawStory.replace( /\n/, " ").split(" ");
 
-  const output = [];
-  
-
-  const Input = arr.map(element => {
-     if(element.includes("[n]")){
-       output.push(
-         {
-           word: element.replace("[n]", " "),
-           pos: "noun"
-         }
-       );
-     }
-     else if(element.includes("[v]")){
-      output.push(
-         {
-           word: element.replace("[v]", " "),
-           pos: "verb"
-         }
-       );
-     }
-     else if(element.includes("[a]")){
-       output.push(
-         {
-           word: element.replace("[a]", " "),
-           pos: "adjective"
-         }
-       );
-     }
-     else{
-       output.push(
-         {
-           word: element,
-           pos: " "
-         }
-       )
-     }
-   });
-
-   return output;
+  return arr.map(function (w){
+    if (w.includes("[n]")){
+      w = w.replace("[n]", "");
+      return {word: w, pos: "noun"}
+    }else if (w.includes("[v]")){
+      w = w.replace("[v]", "");
+      return {word: w, pos: "verb"}
+    }else if (w.includes("[a]")){
+      w = w.replace("[a]", "");
+      return {word: w, pos: "adjective"}
+    }else{
+      return {word: w,}
+    }
+  });
 }
 
+
+function setText(rawStory){
+  document.getElementsByClassName(div.madLibsEdit)
+}
+
+function extracted_data() {
+  let data = []
+  document.querySelectorAll(
+    ".reactive"
+    ).forEach(item=>{
+        let el = document.getElementById(item.id)
+        data.push(el.value || el.innerText)
+    })
+
+    return data.join(' ')
+}
 
 /**
  * All your other JavaScript code goes here, inside the function. Don't worry about
@@ -83,8 +74,38 @@
  *
  * You'll want to use the results of parseStory() to display the story on the page.
  */
-getRawStory()
-  .then(parseStory)
-  .then((processedStory) => {
-    console.log(processedStory);
-  });
+ getRawStory()
+ .then(parseStory)
+ .then((processedStory) => {
+   console.log(processedStory);
+   processedStory.forEach((element,index) => {
+     if (element.pos){
+       var input = document.createElement("input");
+       input.id = 'sel' + index
+       input.classList.add('reactive')
+       input.type = "text";
+       input.placeholder = element.pos;
+       input.name = "Sakar";
+       input.size = 10;
+       input.maxLength = 20;
+       document.querySelector('.madLibsEdit').append(input);
+       document.querySelector('.madLibsEdit').append(" ");
+       input.addEventListener('input', function () {
+         document.querySelector('.madLibsPreview').innerText = extracted_data()
+         
+     });
+     }else{
+       var span = document.createElement("span");
+       span.classList.add('reactive')
+       span.id = 'sel' + index
+       span.innerText = element.word+" "
+
+       document.querySelector('.madLibsEdit').append(span);
+     }
+   });
+
+   processedStory.forEach(element => {
+     document.querySelector('.madLibsPreview').append(element.word+" ");
+   });
+
+ });
