@@ -1,0 +1,39 @@
+/**
+ * Your CSS goes here.
+ */
+
+body{
+    display: flex;
+    background-color: pink;
+    justify-content: space-between;
+ }
+
+.background{
+text-align: center;
+margin: 30px;
+width: 40%;
+ }
+
+ .background p{
+    font-size: 20px;
+ }
+
+ .background h1{
+    font-size: 80px;
+ }
+
+ .madlibs{
+    padding: 30px;
+    margin: 30px;
+    width: 60%;
+    text-align: center;
+ }
+
+ .madlibs p{
+    line-height: 30px;
+ }
+
+ input{
+    width: 75px;
+   
+ }
