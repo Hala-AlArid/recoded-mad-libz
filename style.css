@@ -19,7 +19,8 @@ width: 40%;
  }
 
  .background h1{
-    font-size: 80px;
+   font-family: 'Henny Penny', cursive;
+   font-size: 60px;
  }
 
  .madlibs{
@@ -30,10 +31,63 @@ width: 40%;
  }
 
  .madlibs{
-    line-height: 25px;
+    line-height: 30px;
  }
 
+ /* new */
+
  input{
-    width: 75px;
+   width: 75px;
+   border-radius: 5px;
+   padding: 3px;
+   border: 1px solid;
    
+ }
+
+ input:focus {
+   background-color: rgb(236, 207, 207);
+ }
+
+
+
+
+ @media screen and (max-width: 415px){
+   html, body{
+      width: 100%;
+   }
+
+   body{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      gap: 30px;
+   }
+
+   .background, .madlibs{
+      margin: 0;
+      padding: 0;
+      width: 100%;
+   }
+
+   .madLibsEdit, .madLibsPreview{
+      padding: 10px;
+      font-size: 30px;
+      line-height: 60px;
+   }
+
+   input{
+      width: 120px;
+      font-size: 20px;
+   }
+   
+   .background p{
+      font-size: 25px;
+   }
+
+   .background h1{
+      font-size: 55px;
+   }
+
  }
