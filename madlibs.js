@@ -26,6 +26,8 @@
  * There are multiple ways to do this, but you may want to use regular expressions.
  * Please go through this lesson: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/regular-expressions/
  */
+ 
+// 1- Parsing the story
 
  function parseStory(rawStory) {
   const arr = rawStory.replace( /\n/, " ").split(" ");
@@ -61,6 +63,7 @@ function extracted_data() {
     })
 
     return data.join(' ')
+    
 }
 
 /**
@@ -74,12 +77,17 @@ function extracted_data() {
  *
  * You'll want to use the results of parseStory() to display the story on the page.
  */
+
+// 2- Showing the story
+
  getRawStory()
  .then(parseStory)
  .then((processedStory) => {
    console.log(processedStory);
    processedStory.forEach((element,index) => {
+  
      if (element.pos){
+
        var input = document.createElement("input");
        input.id = 'sel' + index
        input.classList.add('reactive')
@@ -87,25 +95,68 @@ function extracted_data() {
        input.placeholder = element.pos;
        input.name = "Sakar";
        input.size = 10;
-       input.maxLength = 20;
+       input.maxLength = 20; // 3- Constraining user inputs
        document.querySelector('.madLibsEdit').append(input);
        document.querySelector('.madLibsEdit').append(" ");
+       
+       // 4- Live update
+
        input.addEventListener('input', function () {
-         document.querySelector('.madLibsPreview').innerText = extracted_data()
+         document.querySelector('.madLibsPreview').innerText = extracted_data();
          
      });
+
+     document.querySelector('.madLibsPreview').style.fontWeight = "bold";
+
+     input.addEventListener('input', evt => {   // Highlighting currently focused input:
+         checkFilled(input);
+         evt.preventDefault();
+    });
+
+//     input.addEventListener('input', evt => {   // Hotkey
+//       moveCursor(input, evt);
+//       evt.preventDefault();
+//  });
+
+
      }else{
        var span = document.createElement("span");
        span.classList.add('reactive')
        span.id = 'sel' + index
        span.innerText = element.word+" "
-
+       
        document.querySelector('.madLibsEdit').append(span);
      }
+     
    });
-
+   
    processedStory.forEach(element => {
      document.querySelector('.madLibsPreview').append(element.word+" ");
+     
    });
-
+   
  });
+
+ // 3- Hotkeys
+
+ // Highlighting currently focused input:
+
+ function checkFilled(input) {
+
+  if (input.value == null || input.value == '') {
+      input.style.backgroundColor = "";
+  }
+  else{
+      input.style.backgroundColor = "rgb(214, 166, 166)";
+  }
+
+}
+
+//Hotkey
+
+// function moveCursor(input, event) {
+
+// }
+
+ 
+
